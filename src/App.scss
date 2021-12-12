@@ -1,0 +1,164 @@
+@import 'vars.scss';
+
+.carousel-container {
+    width: 800px;
+    aspect-ratio: 16/9;
+    background-color: turquoise;
+    position: relative;
+    margin: 20px;
+    .carousel-header {
+        position: absolute;
+        opacity: 0;
+    }
+    .inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background-color: yellow;
+        display: flex;
+        justify-content: center;
+        .controls {
+            position: relative;
+            width: 95%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            border-radius: 50%;
+            z-index: 10;
+            .rotation {
+                margin-top: 20px;
+                width: $ctrlsWidth;
+                position: absolute;
+                outline: none;
+                padding: 0;
+                background-color: white;
+                transition: all 0.1s linear;
+                background-color: white;
+                border-radius: 50%;
+                &:hover {
+                    transform: scale(1.2);
+                }
+                img {
+                    transform: scale(1.2);
+                }
+            }
+            .pickers {
+                position: absolute;
+                left: calc(50% - 120px);
+                background-color: #000000a6;
+                border-radius: 13px;
+                bottom: 20px;
+                button {
+                    margin: 15px;
+                    width: 15px;
+                    aspect-ratio: 1/1;
+                    border-radius: 50%;
+                    border: 3px solid white;
+                    background-color: black;
+                    transition: all 0.1s linear ;
+                    &:hover {
+                        transform: scale(1.2);
+                        background-color: blue;
+                    }
+                    &:active {
+                        background-color: white;
+                    }
+                }
+            }
+            .previous {
+                position: absolute;
+                width: $ctrlsWidth;
+                outline: none;
+                border: none;
+                padding: 0;
+                top: calc(50% - (#{$ctrlsWidth} /2));
+                background-color: transparent;
+                transition: all 0.1s linear;
+                background-color: white;
+                border-radius: 50%;
+                &:hover {
+                    transform: scale(1.2);
+                }
+                img {
+                    transform: scale(1.2);
+                }
+            }
+            .next {
+                position: absolute;
+                width: $ctrlsWidth;
+                outline: none;
+                border: none;
+                padding: 0;
+                right: 0;
+                top: calc(50% - (#{$ctrlsWidth} /2));
+                background-color: transparent;
+                transition: all 0.1s linear;
+                background-color: white;
+                border-radius: 50%;
+                &:hover {
+                    transform: scale(1.2);
+                }img {
+                    transform: scale(1.2);
+                }
+            }
+        }
+        #carousel-items {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            li {
+                padding: 0;
+                margin: 0;
+                width: 100%;
+                height: 100%;
+                display: none;
+                .carousel-status {
+                    position: absolute;
+                    // opacity: 0;
+                }
+                img {
+                    position: absolute;
+                    padding: 0;
+                    margin: 0;
+                    width: 100%;
+                    height: 100%;
+                    z-index: 5;
+                }
+                .info {
+                    position: absolute;
+                    color: whitesmoke;
+                    width: 100%;
+                    text-align: center;
+                    top: 10%;
+                    z-index: 10;
+                }
+                button {
+                    position: absolute;
+                    z-index: 10;
+                    background-color: white;
+                    width: $btnwidth;
+                    height: 30px;
+                    font-size: large;
+                    border-radius: 15px;
+                    border: none;
+                    outline: none;
+                    font-family: sans-serif serif;
+                    font-weight: bold;
+                    left: calc(50% - (#{$btnwidth}/2));
+                    bottom: 20%;
+                    transition: all 0.1s linear;
+                    &:hover {
+                        border: 3px solid white;
+                    }
+                }
+
+            }
+        }
+        // .carousel-status {
+        //     position: absolute;
+        //     opacity: 0;
+        // }
+    }
+}

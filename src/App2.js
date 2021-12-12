@@ -1,8 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
-import './App.scss';
+import './App2.scss';
 import './Common.scss';
 
-function App() {
+// Frame correct aria-label to the button
+
+function App2() {
   
   let timeoutId;
 
@@ -12,8 +14,6 @@ function App() {
   const [freezeSlideShow, setFreezeSlideShow] = useState(false);
   const pickerRef = useRef([]);
 
-  console.log('pickerRef:',pickerRef);
-
   const slides = [
     {image: "img1.jpg", alt: "tree", info: "I can give you rain and my shadow ", link: "Take me"},
     {image: "img2.jpg", alt: "heart", info: "Think with me", link: "Love Everyone"},
@@ -22,7 +22,7 @@ function App() {
     {image: "img5.jpg", alt: "sunrise", info: "I am one of the sources of all lives in the world", link: "Wake up"},
   ];
 
-  // const slideStatus = `Showing ${idx+1} of ${slides.length} carousel item`;
+  const slideStatus = `Showing ${idx+1} of ${slides.length} carousel item`;
 
   const setIdx = (val, doFocus=false) => {
     let id;
@@ -34,16 +34,14 @@ function App() {
       id = val;
     }
     changeIdx(id);
-    console.log('doFocus:',doFocus);
     if(doFocus) {
-      pickerRef.current[id].focus();
+        pickerRef.current[id].focus();
     }
   }
 
   // handlers
 
   const handlePrevious = (e, doFocus=false) => {
-    console.log('focus in previous:',doFocus);
     setFreezeSlideShow(true);
     setRotateImage(false)
     setIdx(idx-1, doFocus);
@@ -62,11 +60,11 @@ function App() {
     
     switch (e.code) {
       case "ArrowLeft":{
-        handlePrevious(e, true);
+        handlePrevious(null, true);
         break;
       }
       case "ArrowRight": {
-        handleNext(e, true);
+        handleNext(null, true);
         break;
       }  
       default:
@@ -91,8 +89,8 @@ function App() {
   }
 
   // slide status
-  const getSlideStatus = (index) => {
-    return `Showing ${index+1} of ${slides.length} carousel item`;
+  const getSlideStatus = (id) => {
+    return `Showing ${id+1} of ${slides.length} carousel item`;
   }
   
   // UseEffect hooks
@@ -103,7 +101,7 @@ function App() {
 
   useEffect(() => {
     if(!triggerSlideshow) {
-      console.log('Clearing interval');
+      console.log('Clearing interval',slideStatus,);
       timeoutId && clearInterval(timeoutId);
     }
   }, [triggerSlideshow])
@@ -162,7 +160,11 @@ function App() {
               }
             </div>
           </div>
-          <ul id="carousel-items" role="presentation" aria-live={triggerSlideshow ? "polite" : "false"}>
+          <ul 
+            id="carousel-items" 
+            role="presentation" 
+            // aria-live={triggerSlideshow ? "polite" : "false"}
+          >
             {
               slides.map(
                 (slide, index) => {
@@ -172,9 +174,6 @@ function App() {
                       id={`item${index+1}`}
                       role="tabPanel"
                     >
-                      <h2 class="carousel-status">
-                        {getSlideStatus(index)}
-                      </h2>
                       <img id="myImg" src={`/images/${slide.image}`} alt={slide.alt} />
                       <h2 id="headingText" class="info">{slide.info}</h2>
                       <button>{slide.link}</button>
@@ -184,9 +183,12 @@ function App() {
               )
             }
           </ul>
+            <h2 class="carousel-status" aria-live="polite">
+                {slideStatus}
+            </h2>
         </div>
     </div>
   );
 }
 
-export default App;
+export default App2;
