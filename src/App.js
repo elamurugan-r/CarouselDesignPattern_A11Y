@@ -124,7 +124,8 @@ function App() {
   }, [idx, triggerSlideshow])
 
   return (
-    <div className="carousel-container" aria-aria-labelledby="carousel-header" >
+    // aria-roledescription, aria-label are not working
+    <section className="carousel-container" aria-roledescription="carousel" aria-labelledby="carousel-header" >
         <h1 class="carousel-header">Popular shows and Episodes</h1>
         <div 
           class="inner"
@@ -141,9 +142,9 @@ function App() {
             >
               <img src={`/images/${rotateImage ? 'pause' : 'play'}.svg`} />
             </button>
-            <button class="previous" aria-label="previous" onClick={handlePrevious}><img src="/images/previous.svg" /></button>
-            <button class="next" aria-label="next" onClick={handleNext}><img src="/images/next.svg" /></button>
-            <div class="pickers" role="tablist">
+            <button class="previous" aria-label="previous" aria-controls="carousel-items" onClick={handlePrevious}><img src="/images/previous.svg" /></button>
+            <button class="next" aria-label="next" aria-controls="carousel-items" onClick={handleNext}><img src="/images/next.svg" /></button>
+            <div class="pickers" role="tablist" aria-label="slides">
               {
                 slides.map((slide, index) => {
                   return (
@@ -155,6 +156,7 @@ function App() {
                       aria-controls={`item${index+1}`}
                       aria-selected={(index===idx) ? true : false}
                       tabIndex={(index===idx) ? 0 : -1}
+                      aria-label={`item${index+1}`}
                       ref={el => pickerRef.current[index] = el}
                     ></button>
                   );
@@ -162,15 +164,18 @@ function App() {
               }
             </div>
           </div>
-          <ul id="carousel-items" role="presentation" aria-live={triggerSlideshow ? "polite" : "false"}>
+          <ul id="carousel-items" role="presentation" aria-live={freezeSlideShow ? "polite" : "off"}>
             {
               slides.map(
                 (slide, index) => {
                   return (
+                    // aria-roledescription and aria-hidden are not needed
                     <li 
                       class={(index===idx) ? 'activeSlide' : ''}
                       id={`item${index+1}`}
-                      role="tabPanel"
+                      role="tabpanel"
+                      aria-roledescription="slide"
+                      aria-hidden={(index===idx) ? false : true}
                     >
                       <h2 class="carousel-status">
                         {getSlideStatus(index)}
@@ -185,7 +190,7 @@ function App() {
             }
           </ul>
         </div>
-    </div>
+    </section>
   );
 }
 
