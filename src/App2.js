@@ -1,16 +1,15 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import './App2.scss';
 import './Common.scss';
 
 function App2() {
   
-  let timeoutId;
-
   const [idx, changeIdx] = useState(0);
   const [rotateImage, setRotateImage] = useState(true);
   const [triggerSlideshow, setTriggerSlideShow] = useState(false);
   const [freezeSlideShow, setFreezeSlideShow] = useState(false);
   const pickerRef = useRef([]);
+  const timeoutId = useRef(null);
 
   console.log('pickerRef:',pickerRef);
 
@@ -24,7 +23,7 @@ function App2() {
 
   // const slideStatus = `Showing ${idx+1} of ${slides.length} carousel item`;
 
-  const setIdx = (val, doFocus=false) => {
+  const setIdx = useCallback((val, doFocus=false) => {
     let id;
     if (val >= slides.length) {
       id = 0;
@@ -38,7 +37,7 @@ function App2() {
     if(doFocus) {
       pickerRef.current[id].focus();
     }
-  }
+  }, [slides.length])
 
   // handlers
 
@@ -112,7 +111,7 @@ function App2() {
   useEffect(() => {
     if(!triggerSlideshow) {
       console.log('Clearing interval');
-      timeoutId && clearInterval(timeoutId);
+      timeoutId?.current && clearTimeout(timeoutId.current);
     }
   }, [triggerSlideshow])
 
@@ -122,14 +121,14 @@ function App2() {
 
   useEffect(() => {
     if(triggerSlideshow) {
-      timeoutId = setTimeout(() => {
+      timeoutId.current = setTimeout(() => {
         setIdx(idx+1);
       }, 4000);
     }
     return () => {
-      clearInterval(timeoutId);
+      clearTimeout(timeoutId.current);
     }
-  }, [idx, triggerSlideshow])
+  }, [idx, triggerSlideshow, setIdx])
 
   return (
     // aria-roledescription, aria-label are not working
