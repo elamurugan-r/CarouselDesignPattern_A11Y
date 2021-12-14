@@ -114,9 +114,6 @@
                 width: 100%;
                 height: 100%;
                 display: none;
-                .carousel-status {
-                    position: absolute;
-                }
                 img {
                     position: absolute;
                     padding: 0;
@@ -154,6 +151,9 @@
                 }
 
             }
+        }
+        .carousel-status {
+            position: absolute;
         }
     }
 }

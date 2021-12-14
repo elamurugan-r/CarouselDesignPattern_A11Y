@@ -21,7 +21,7 @@ function App2() {
     {image: "img5.jpg", alt: "sunrise", info: "I am one of the sources of all lives in the world", link: "Wake up"},
   ];
 
-  // const slideStatus = `Showing ${idx+1} of ${slides.length} carousel item`;
+  const slideStatus = `Showing ${idx+1} of ${slides.length} carousel item`;
 
   const setIdx = useCallback((val, doFocus=false) => {
     let id;
@@ -192,8 +192,11 @@ function App2() {
               )
             }
           </ul>
-          <h2 class="carousel-status">
-            {getSlideStatus(idx)}
+          <h2 class="carousel-status" aria-live="polite">
+            {
+              // getSlideStatus(idx)
+            }
+            {slideStatus}
           </h2>
         </div>
     </section>

@@ -21,7 +21,7 @@ function App() {
     {image: "img5.jpg", alt: "sunrise", info: "I am one of the sources of all lives in the world", link: "Wake up"},
   ];
 
-  // const slideStatus = `Showing ${idx+1} of ${slides.length} carousel item`;
+  const slideStatus = `Showing ${idx+1} of ${slides.length} carousel item`;
 
   const setIdx = useCallback((val, doFocus=false) => {
     let id;
@@ -171,7 +171,9 @@ function App() {
               }
             </div>
           </div>
-          <ul role="presentation" id="carousel-items" aria-live={freezeSlideShow ? "polite" : "off"}>
+          <ul role="presentation" id="carousel-items" 
+            // aria-live={freezeSlideShow ? "polite" : "off"}
+          >
             {
               slides.map(
                 (slide, index) => {
@@ -184,9 +186,6 @@ function App() {
                       aria-roledescription="slide"
                       aria-hidden={(index===idx) ? false : true}
                     >
-                      <h2 class="carousel-status">
-                        {getSlideStatus(index)}
-                      </h2>
                       <img id="myImg" src={`/images/${slide.image}`} alt={slide.alt} />
                       <h2 id="headingText" class="info">{slide.info}</h2>
                       <button>{slide.link}</button>
@@ -196,6 +195,9 @@ function App() {
               )
             }
           </ul>
+          <h2 class="carousel-status" aria-live="polite">
+            {getSlideStatus(idx)}
+          </h2>
         </div>
     </section>
   );
