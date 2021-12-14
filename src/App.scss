@@ -37,6 +37,7 @@
                 }
                 img {
                     transform: scale(1.2);
+                    margin-bottom: -5px;
                 }
             }
             .pickers {
@@ -78,6 +79,7 @@
                 }
                 img {
                     transform: scale(1.2);
+                    margin-bottom: -5px;
                 }
             }
             .next {
@@ -96,6 +98,7 @@
                     transform: scale(1.2);
                 }img {
                     transform: scale(1.2);
+                    margin-bottom: -5px;
                 }
             }
         }
@@ -113,7 +116,6 @@
                 display: none;
                 .carousel-status {
                     position: absolute;
-                    // opacity: 0;
                 }
                 img {
                     position: absolute;
@@ -153,9 +155,5 @@
 
             }
         }
-        // .carousel-status {
-        //     position: absolute;
-        //     opacity: 0;
-        // }
     }
 }

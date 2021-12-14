@@ -2,8 +2,6 @@ import { useEffect, useRef, useState } from 'react';
 import './App2.scss';
 import './Common.scss';
 
-// Frame correct aria-label to the button
-
 function App2() {
   
   let timeoutId;
@@ -14,6 +12,8 @@ function App2() {
   const [freezeSlideShow, setFreezeSlideShow] = useState(false);
   const pickerRef = useRef([]);
 
+  console.log('pickerRef:',pickerRef);
+
   const slides = [
     {image: "img1.jpg", alt: "tree", info: "I can give you rain and my shadow ", link: "Take me"},
     {image: "img2.jpg", alt: "heart", info: "Think with me", link: "Love Everyone"},
@@ -22,7 +22,7 @@ function App2() {
     {image: "img5.jpg", alt: "sunrise", info: "I am one of the sources of all lives in the world", link: "Wake up"},
   ];
 
-  const slideStatus = `Showing ${idx+1} of ${slides.length} carousel item`;
+  // const slideStatus = `Showing ${idx+1} of ${slides.length} carousel item`;
 
   const setIdx = (val, doFocus=false) => {
     let id;
@@ -34,14 +34,16 @@ function App2() {
       id = val;
     }
     changeIdx(id);
+    console.log('doFocus:',doFocus);
     if(doFocus) {
-        pickerRef.current[id].focus();
+      pickerRef.current[id].focus();
     }
   }
 
   // handlers
 
   const handlePrevious = (e, doFocus=false) => {
+    console.log('focus in previous:',doFocus);
     setFreezeSlideShow(true);
     setRotateImage(false)
     setIdx(idx-1, doFocus);
@@ -51,22 +53,30 @@ function App2() {
     setRotateImage(false)
     setIdx(idx+1, doFocus);
   }
-  const handlePickers = (index) => {
+  const handlePickers = (index, doFocus=false) => {
     setFreezeSlideShow(true);
     setRotateImage(false)
-    setIdx(index)
+    setIdx(index, doFocus)
   }
   const handleTabListKeyDown = (e) => {
     
     switch (e.code) {
       case "ArrowLeft":{
-        handlePrevious(null, true);
+        handlePrevious(e, true);
         break;
       }
       case "ArrowRight": {
-        handleNext(null, true);
+        handleNext(e, true);
         break;
-      }  
+      }
+      case "Home": {
+        handlePickers(0, true);
+        break;
+      }
+      case "End": {
+        handlePickers(slides.length-1, true);
+        break;
+      }
       default:
         break;
     }
@@ -89,8 +99,8 @@ function App2() {
   }
 
   // slide status
-  const getSlideStatus = (id) => {
-    return `Showing ${id+1} of ${slides.length} carousel item`;
+  const getSlideStatus = (index) => {
+    return `Showing ${index+1} of ${slides.length} carousel item`;
   }
   
   // UseEffect hooks
@@ -101,7 +111,7 @@ function App2() {
 
   useEffect(() => {
     if(!triggerSlideshow) {
-      console.log('Clearing interval',slideStatus,);
+      console.log('Clearing interval');
       timeoutId && clearInterval(timeoutId);
     }
   }, [triggerSlideshow])
@@ -122,7 +132,8 @@ function App2() {
   }, [idx, triggerSlideshow])
 
   return (
-    <div className="carousel-container" aria-aria-labelledby="carousel-header" >
+    // aria-roledescription, aria-label are not working
+    <section className="carousel-container" aria-labelledby="carousel-header" >
         <h1 class="carousel-header">Popular shows and Episodes</h1>
         <div 
           class="inner"
@@ -137,10 +148,10 @@ function App2() {
               onClick={handlePlayStop}
               aria-label={rotateImage ? 'Stop carousel rotation' : 'play Carousel Rotation'}
             >
-              <img src={`/images/${rotateImage ? 'pause' : 'play'}.svg`} />
+              <img src={`/images/${rotateImage ? 'pause' : 'play'}.svg`} alt={`${rotateImage ? 'pause' : 'play'}`} />
             </button>
-            <button class="previous" aria-label="previous" onClick={handlePrevious}><img src="/images/previous.svg" /></button>
-            <button class="next" aria-label="next" onClick={handleNext}><img src="/images/next.svg" /></button>
+            <button class="previous" aria-label="previous" aria-controls="carousel-items" onClick={handlePrevious}><img src="/images/previous.svg" alt="previous" /></button>
+            <button class="next" aria-label="next" aria-controls="carousel-items" onClick={handleNext}><img src="/images/next.svg" alt="next" /></button>
             <div class="pickers" role="tablist">
               {
                 slides.map((slide, index) => {
@@ -160,19 +171,18 @@ function App2() {
               }
             </div>
           </div>
-          <ul 
-            id="carousel-items" 
-            role="presentation" 
-            // aria-live={triggerSlideshow ? "polite" : "false"}
-          >
+          <ul role="presentation" id="carousel-items" aria-live={freezeSlideShow ? "polite" : "off"}>
             {
               slides.map(
                 (slide, index) => {
                   return (
+                    // aria-roledescription and aria-hidden are not needed
                     <li 
                       class={(index===idx) ? 'activeSlide' : ''}
                       id={`item${index+1}`}
-                      role="tabPanel"
+                      role="tabpanel"
+                      aria-roledescription="slide"
+                      aria-hidden={(index===idx) ? false : true}
                     >
                       <img id="myImg" src={`/images/${slide.image}`} alt={slide.alt} />
                       <h2 id="headingText" class="info">{slide.info}</h2>
@@ -183,11 +193,11 @@ function App2() {
               )
             }
           </ul>
-            <h2 class="carousel-status" aria-live="polite">
-                {slideStatus}
-            </h2>
+          <h2 class="carousel-status">
+            {getSlideStatus(idx)}
+          </h2>
         </div>
-    </div>
+    </section>
   );
 }
 

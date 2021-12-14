@@ -53,10 +53,10 @@ function App() {
     setRotateImage(false)
     setIdx(idx+1, doFocus);
   }
-  const handlePickers = (index) => {
+  const handlePickers = (index, doFocus=false) => {
     setFreezeSlideShow(true);
     setRotateImage(false)
-    setIdx(index)
+    setIdx(index, doFocus)
   }
   const handleTabListKeyDown = (e) => {
     
@@ -68,7 +68,15 @@ function App() {
       case "ArrowRight": {
         handleNext(e, true);
         break;
-      }  
+      }
+      case "Home": {
+        handlePickers(0, true);
+        break;
+      }
+      case "End": {
+        handlePickers(slides.length-1, true);
+        break;
+      }
       default:
         break;
     }
@@ -140,10 +148,10 @@ function App() {
               onClick={handlePlayStop}
               aria-label={rotateImage ? 'Stop carousel rotation' : 'play Carousel Rotation'}
             >
-              <img src={`/images/${rotateImage ? 'pause' : 'play'}.svg`} />
+              <img src={`/images/${rotateImage ? 'pause' : 'play'}.svg`} alt={`${rotateImage} ? 'pause' : 'play'`} />
             </button>
-            <button class="previous" aria-label="previous" aria-controls="carousel-items" onClick={handlePrevious}><img src="/images/previous.svg" /></button>
-            <button class="next" aria-label="next" aria-controls="carousel-items" onClick={handleNext}><img src="/images/next.svg" /></button>
+            <button class="previous" aria-label="previous" aria-controls="carousel-items" onClick={handlePrevious}><img src="/images/previous.svg" alt="previous" /></button>
+            <button class="next" aria-label="next" aria-controls="carousel-items" onClick={handleNext}><img src="/images/next.svg" alt="next" /></button>
             <div class="pickers" role="tablist" aria-label="slides">
               {
                 slides.map((slide, index) => {
@@ -164,7 +172,7 @@ function App() {
               }
             </div>
           </div>
-          <ul id="carousel-items" role="presentation" aria-live={freezeSlideShow ? "polite" : "off"}>
+          <ul role="presentation" id="carousel-items" aria-live={freezeSlideShow ? "polite" : "off"}>
             {
               slides.map(
                 (slide, index) => {
