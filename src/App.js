@@ -199,7 +199,7 @@ function App() {
               )
             }
           </ul>
-          <h2 class="carousel-status" aria-live={freezeSlideShow ? "polite" : "off"}>
+          <h2 class="carousel-status" aria-live="polite">
             {getSlideStatus(idx)}
           </h2>
         </div>
