@@ -131,7 +131,11 @@ function App() {
   }, [idx, triggerSlideshow, setIdx])
 
   return (
-    // aria-roledescription, aria-label are not working
+    <div>
+    <button>Trigger</button>
+    {// aria-roledescription, aria-label are not working
+    }
+
     <section className="carousel-container" aria-roledescription="carousel" aria-labelledby="carousel-header" >
         <h1 id="carousel-header" class="carousel-header">Popular shows and Episodes</h1>
         <div 
@@ -200,6 +204,7 @@ function App() {
           </h2>
         </div>
     </section>
+    </div>
   );
 }
 
