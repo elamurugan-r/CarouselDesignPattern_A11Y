@@ -133,7 +133,7 @@ function App() {
   return (
     // aria-roledescription, aria-label are not working
     <section className="carousel-container" aria-roledescription="carousel" aria-labelledby="carousel-header" >
-        <h1 class="carousel-header">Popular shows and Episodes</h1>
+        <h1 id="carousel-header" class="carousel-header">Popular shows and Episodes</h1>
         <div 
           class="inner"
           onMouseEnter={handleMouseEnter}
@@ -195,7 +195,7 @@ function App() {
               )
             }
           </ul>
-          <h2 class="carousel-status" aria-live="polite">
+          <h2 class="carousel-status" aria-live={freezeSlideShow ? "polite" : "off"}>
             {getSlideStatus(idx)}
           </h2>
         </div>
