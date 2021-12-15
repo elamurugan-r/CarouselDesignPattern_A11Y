@@ -155,7 +155,7 @@ function App() {
             </button>
             <button class="previous" aria-label="previous" aria-controls="carousel-items" onClick={handlePrevious}><img src="/images/previous.svg" alt="previous" /></button>
             <button class="next" aria-label="next" aria-controls="carousel-items" onClick={handleNext}><img src="/images/next.svg" alt="next" /></button>
-            <div class="pickers" role="tablist" aria-label="slides">
+            <div class="pickers" role="tablist" aria-label="slidePickers">
               {
                 slides.map((slide, index) => {
                   return (
@@ -184,14 +184,14 @@ function App() {
                   return (
                     // aria-roledescription and aria-hidden are not needed
                     <li 
-                      class={(index===idx) ? 'activeSlide' : ''}
+                      className={`carousel-slide ${index===idx ? 'activeSlide' : ''}`}
                       id={`item${index+1}`}
                       role="tabpanel"
                       aria-roledescription="slide"
                       aria-hidden={(index===idx) ? false : true}
                     >
-                      <img id="myImg" src={`/images/${slide.image}`} alt={slide.alt} />
-                      <h2 id="headingText" class="info">{slide.info}</h2>
+                      <img id={`myImg${index}`} src={`/images/${slide.image}`} alt={slide.alt} />
+                      <h2 id={`headingText${index}`} class="info">{slide.info}</h2>
                       <button>{slide.link}</button>
                     </li>
                   )
@@ -199,7 +199,7 @@ function App() {
               )
             }
           </ul>
-          <h2 class="carousel-status" aria-live="polite">
+          <h2 class="carousel-status" aria-live={freezeSlideShow ? "polite" : "off"}>
             {getSlideStatus(idx)}
           </h2>
         </div>
