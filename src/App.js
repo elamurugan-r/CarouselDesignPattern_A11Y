@@ -136,7 +136,7 @@ function App() {
     {// aria-roledescription, aria-label are not working
     }
 
-    <section className="carousel-container" aria-roledescription="carousel" aria-labelledby="carousel-header" >
+    <section className="carousel-container" role="region" aria-roledescription="carousel" aria-labelledby="carousel-header" >
         <h1 id="carousel-header" class="carousel-header">Popular shows and Episodes</h1>
         <div 
           class="inner"
