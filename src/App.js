@@ -136,7 +136,7 @@ function App() {
     {// aria-roledescription, aria-label are not working
     }
 
-    <section className="carousel-container" aria-roledescription="carousel" aria-labelledby="carousel-header" >
+    <div className="carousel-container" role="region" aria-roledescription="carousel" aria-labelledby="carousel-header" >
         <h1 id="carousel-header" class="carousel-header">Popular shows and Episodes</h1>
         <div 
           class="inner"
@@ -187,7 +187,6 @@ function App() {
                       className={`carousel-slide ${index===idx ? 'activeSlide' : ''}`}
                       id={`item${index+1}`}
                       role="tabpanel"
-                      aria-roledescription="slide"
                       aria-hidden={(index===idx) ? false : true}
                     >
                       <img id={`myImg${index}`} src={`/images/${slide.image}`} alt={slide.alt} />
@@ -203,7 +202,7 @@ function App() {
             {getSlideStatus(idx)}
           </h2>
         </div>
-    </section>
+    </div>
     </div>
   );
 }
