@@ -192,7 +192,7 @@ function App() {
                     >
                       <img id={`myImg${index}`} src={`/images/${slide.image}`} alt={slide.alt} />
                       <h2 id={`headingText${index}`} class="info">{slide.info}</h2>
-                      <button>{slide.link}</button>
+                      <button>Watch Now</button>
                     </li>
                   )
                 }
