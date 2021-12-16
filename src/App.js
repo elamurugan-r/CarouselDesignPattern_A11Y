@@ -176,6 +176,7 @@ function App() {
             </div>
           </div>
           <ul id="carousel-items" 
+              role="presentation"
             // aria-live={freezeSlideShow ? "polite" : "off"}
           >
             {
