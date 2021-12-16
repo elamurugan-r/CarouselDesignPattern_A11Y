@@ -14,11 +14,11 @@ function App() {
   console.log('pickerRef:',pickerRef);
 
   const slides = [
-    {image: "img1.jpg", alt: "tree", info: "I can give you rain and my shadow ", link: "Take me"},
-    {image: "img2.jpg", alt: "heart", info: "Think with me", link: "Love Everyone"},
-    {image: "img3.jpeg", alt: "lens", info: "I can show you everything big", link: "Zoom in"},
-    {image: "img4.jpg", alt: "mushroom", info: "I am very healthy", link: "Eat it"},
-    {image: "img5.jpg", alt: "sunrise", info: "I am one of the sources of all lives in the world", link: "Wake up"},
+    {image: "img1.jpg", alt: "tree", info: "I can give you rain and my shadow ", btn: "Watch Now"},
+    {image: "img2.jpg", alt: "heart", info: "Think with me", btn: "Watch Now"},
+    {image: "img3.jpeg", alt: "lens", info: "I can show you everything big", btn: "Watch Now"},
+    {image: "img4.jpg", alt: "mushroom", info: "I am very healthy", btn: "Watch Now"},
+    {image: "img5.jpg", alt: "sunrise", info: "I am one of the sources of all lives in the world", btn: "Watch Now"},
   ];
 
   const slideStatus = `Showing ${idx+1} of ${slides.length} carousel item`;
@@ -192,7 +192,7 @@ function App() {
                     >
                       <img id={`myImg${index}`} src={`/images/${slide.image}`} alt={slide.alt} />
                       <h2 id={`headingText${index}`} class="info">{slide.info}</h2>
-                      <button>Watch Now</button>
+                      <button aria-label={`${slide.alt} ${slide.info} ${slide.btn}`}>{slide.btn}</button>
                     </li>
                   )
                 }
