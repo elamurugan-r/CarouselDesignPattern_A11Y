@@ -133,8 +133,7 @@ function App() {
   return (
     <div>
     <button>Trigger</button>
-    {// aria-roledescription, aria-label are not working
-    }
+
 
     <div className="carousel-container" role="region" aria-roledescription="carousel" aria-labelledby="carousel-header" >
         <h1 id="carousel-header" class="carousel-header">Popular shows and Episodes</h1>
