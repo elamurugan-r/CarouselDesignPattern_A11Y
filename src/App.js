@@ -157,7 +157,7 @@ function App() {
             <button class="next" aria-label="next" aria-controls="carousel-items" onClick={handleNext}><img src="/images/next.svg" alt="next" /></button>
             <div class="pickers" role="tablist" aria-label="slidePickers">
               {
-                slides.map((slide, index) => {
+                slides.map((_, index) => {
                   return (
                     <button 
                       class={(index===idx) ? 'activePicker' : ''} 
@@ -167,7 +167,7 @@ function App() {
                       aria-controls={`item${index+1}`}
                       aria-selected={(index===idx) ? true : false}
                       tabIndex={(index===idx) ? 0 : -1}
-                      aria-label={`item${index+1}`}
+                      aria-labelledby={`item${index+1}`}
                       ref={el => pickerRef.current[index] = el}
                     ></button>
                   );
